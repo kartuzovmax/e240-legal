@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>E240 — VHS Camera App for iPhone · Real VHS Camcorder</title>
+<meta name="description" content="E240 turns your iPhone into a realistic VHS camcorder. Real VHS signal — not a filter — burned-in timestamps, custom dates, retro looks. Free on the App Store.">
+<link rel="canonical" href="https://e240.app/">
+<meta name="apple-itunes-app" content="app-id=1538403735">
+<meta name="theme-color" content="#0a0a0b">
+<link rel="icon" href="/assets/icon-512.png">
+<link rel="apple-touch-icon" href="/assets/icon-512.png">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="E240">
+<meta property="og:title" content="E240 — VHS Camera App for iPhone">
+<meta property="og:description" content="Who needs 4K when you have VHS? E240 films like a real 90s camcorder — real signal, burned-in timestamps, custom dates. Free on the App Store.">
+<meta property="og:url" content="https://e240.app/">
+<meta property="og:image" content="https://e240.app/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="E240 — VHS Camera App for iPhone">
+<meta name="twitter:description" content="Who needs 4K when you have VHS? E240 films like a real 90s camcorder. Free on the App Store.">
+<meta name="twitter:image" content="https://e240.app/assets/og.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "VHS Cam - E240",
+  "alternateName": "E240",
+  "url": "https://e240.app/",
+  "image": "https://e240.app/assets/icon-512.png",
+  "screenshot": [
+    "https://e240.app/assets/shot-1.jpg",
+    "https://e240.app/assets/shot-2.jpg",
+    "https://e240.app/assets/shot-3.jpg",
+    "https://e240.app/assets/shot-4.jpg",
+    "https://e240.app/assets/shot-5.jpg"
+  ],
+  "description": "E240 is a realistic VHS camera app for iPhone. It records video the way real VHS camcorders did — real signal degradation, not an overlay filter — with burned-in timestamps, custom dates, and retro looks. You can also import existing videos and give them the VHS treatment.",
+  "operatingSystem": "iOS",
+  "applicationCategory": "PhotoApplication",
+  "installUrl": "https://apps.apple.com/us/app/vhs-cam-e240/id1538403735",
+  "downloadUrl": "https://apps.apple.com/us/app/vhs-cam-e240/id1538403735",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD",
+    "description": "Free to download. E240 PRO subscription unlocks unlimited recording, all filters, custom timestamps and removes watermarks."
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.6",
+    "ratingCount": "731"
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "SputnikLabs"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is E240?",
+      "acceptedAnswer": { "@type": "Answer", "text": "E240 (VHS Cam - E240) is a VHS camera app for iPhone. It records video that looks like it was shot on a real 90s VHS camcorder — complete with tape noise, color bleed and a burned-in timestamp — and can also apply the same treatment to videos you already have in your library." }
+    },
+    {
+      "@type": "Question",
+      "name": "How is E240 different from other VHS camera apps?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Most VHS apps composite a grainy overlay on top of clean footage. E240 processes the image the way a real VHS camera and tape did — the degradation comes from the signal itself, which is why the result reads as genuine camcorder footage rather than a filter." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is E240 free?",
+      "acceptedAnswer": { "@type": "Answer", "text": "E240 is free to download and use on the App Store. An optional PRO subscription unlocks unlimited recording, all filters, custom timestamps, and removes watermarks." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I put a VHS effect on videos I already filmed?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Import any video from your photo library into E240, apply the VHS look and a timestamp, and export it back — so old clips can look like they were pulled off a tape." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I change the date on the timestamp?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. The timestamp is burned into the footage like on a real camcorder, and you can set any custom date and time — film your kid's birthday today and date it 1994." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is E240 available for Android?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. E240 is an iPhone app, available exclusively on the Apple App Store." }
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=VT323&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --black: #0a0a0b;
+  --panel: #131315;
+  --line: #232326;
+  --white: #f4f2ec;
+  --dim: rgba(244, 242, 236, .58);
+  --faint: rgba(244, 242, 236, .34);
+  --rec: #ff3b30;
+  --orange: #ff9500;
+  --coral: #ff4a3d;
+  --magenta: #f5418c;
+  --blue: #3e66f5;
+  --vcr-blue: #0f1fc4;
+  --osd: 'VT323', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Archivo', system-ui, sans-serif;
+  font-variation-settings: 'wdth' 100;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+::selection { background: var(--magenta); color: var(--black); }
+
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+.osd {
+  font-family: var(--osd);
+  font-size: 20px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+/* ---------- stripes (from the tape label) ---------- */
+.stripes {
+  background: repeating-linear-gradient(180deg,
+    var(--orange) 0 14px, var(--black) 14px 20px,
+    var(--coral) 20px 34px, var(--black) 34px 40px,
+    var(--magenta) 40px 54px, var(--black) 54px 60px,
+    var(--blue) 60px 74px, var(--black) 74px 92px);
+}
+.stripe-band {
+  height: 74px;
+  transform: skewY(-2deg);
+  margin: -12px 0;
+}
+
+/* ---------- OSD top bar ---------- */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+}
+.topbar .brand {
+  font-family: var(--osd);
+  font-size: 26px;
+  color: var(--white);
+  letter-spacing: .1em;
+  text-decoration: none;
+}
+.rec-dot {
+  display: inline-block;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--rec);
+  margin-right: 8px;
+  animation: blink 1.2s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ---------- hero ---------- */
+.hero { position: relative; padding: 24px 0 90px; }
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 48px;
+  align-items: center;
+  margin-top: 16px;
+}
+.eyebrow {
+  font-family: var(--osd);
+  font-size: 21px;
+  color: var(--orange);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+h1 {
+  font-size: clamp(36px, 4.9vw, 66px);
+  line-height: .98;
+  font-weight: 900;
+  font-variation-settings: 'wdth' 114;
+  text-transform: uppercase;
+  letter-spacing: -.01em;
+  position: relative;
+}
+h1 .vhs-word { color: var(--magenta); }
+.glitchable { position: relative; }
+.hero-sub {
+  margin: 26px 0 34px;
+  font-size: 19px;
+  color: var(--dim);
+  max-width: 46ch;
+}
+.hero-sub strong { color: var(--white); font-weight: 600; }
+.cta-row { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.badge-link { transition: transform .15s ease; display: block; }
+.badge-link:hover { transform: scale(1.04); }
+.badge-link img { height: 56px; width: auto; }
+.rating { line-height: 1.35; }
+.rating .stars { color: var(--orange); font-size: 15px; letter-spacing: 2px; }
+.rating .count { font-size: 13px; color: var(--faint); }
+.hero-timestamp {
+  position: absolute;
+  left: 24px; bottom: 28px;
+  font-family: var(--osd);
+  font-size: 24px;
+  color: var(--white);
+  opacity: .85;
+  text-shadow: 2px 0 0 rgba(62, 102, 245, .8), -2px 0 0 rgba(245, 65, 140, .6);
+  line-height: 1.1;
+}
+
+/* CRT frame */
+.crt-wrap { position: relative; padding: 26px 0; }
+.crt-stripes {
+  position: absolute;
+  inset: -4% -14% -4% auto;
+  width: 46%;
+  transform: rotate(18deg);
+  opacity: .9;
+}
+.crt {
+  position: relative;
+  margin-left: auto;
+  width: min(310px, 88%);
+  background: #1a1a1d;
+  border: 1px solid #2c2c30;
+  border-radius: 26px;
+  padding: 12px;
+  box-shadow: 0 40px 90px rgba(0, 0, 0, .75), 0 0 0 1px rgba(0, 0, 0, .6);
+  transform: rotate(-2.5deg);
+}
+.crt-screen {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #000;
+}
+.crt-screen img { width: 100%; height: auto; }
+.crt-screen::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,.16) 0 1px, transparent 1px 3px);
+  pointer-events: none;
+}
+.crt-screen::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(120% 90% at 50% 8%, rgba(255,255,255,.07), transparent 45%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ---------- sections ---------- */
+section { padding: 96px 0; }
+.counter-label {
+  font-family: var(--osd);
+  font-size: 21px;
+  color: var(--faint);
+  letter-spacing: .12em;
+  margin-bottom: 18px;
+}
+.counter-label b { color: var(--orange); font-weight: 400; }
+h2 {
+  font-size: clamp(32px, 4.4vw, 54px);
+  line-height: 1.02;
+  font-weight: 900;
+  font-variation-settings: 'wdth' 118;
+  text-transform: uppercase;
+  max-width: 20ch;
+}
+.section-sub { margin-top: 20px; font-size: 18px; color: var(--dim); max-width: 58ch; }
+.section-sub strong { color: var(--white); font-weight: 600; }
+
+/* signal section */
+.signal-grid {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 64px;
+  align-items: center;
+}
+.signal-points { margin-top: 36px; display: grid; gap: 26px; }
+.point { border-left: 3px solid var(--line); padding-left: 18px; }
+.point:nth-child(1) { border-color: var(--orange); }
+.point:nth-child(2) { border-color: var(--magenta); }
+.point:nth-child(3) { border-color: var(--blue); }
+.point .osd { font-size: 19px; margin-bottom: 4px; }
+.point p { color: var(--dim); font-size: 16px; max-width: 44ch; }
+.point p strong { color: var(--white); font-weight: 600; }
+
+/* features */
+.features-grid {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.feature {
+  background: var(--panel);
+  padding: 30px 26px 34px;
+}
+.feature .osd { font-size: 19px; margin-bottom: 10px; }
+.feature h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+.feature p { font-size: 15px; color: var(--dim); }
+.f-orange .osd { color: var(--orange); }
+.f-coral .osd { color: var(--coral); }
+.f-magenta .osd { color: var(--magenta); }
+.f-blue .osd { color: #7d95ff; }
+
+/* reel */
+.reel-section { padding-bottom: 40px; }
+.reel {
+  margin-top: 44px;
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 4px 24px 24px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.reel::-webkit-scrollbar { display: none; }
+.reel img {
+  width: 250px;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  scroll-snap-align: center;
+  flex-shrink: 0;
+}
+
+/* FAQ */
+.faq-list { margin-top: 40px; max-width: 780px; }
+details {
+  border-top: 1px solid var(--line);
+}
+details:last-child { border-bottom: 1px solid var(--line); }
+summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 22px 40px 22px 0;
+  font-size: 19px;
+  font-weight: 600;
+  position: relative;
+}
+summary::-webkit-details-marker { display: none; }
+summary::after {
+  content: '+';
+  font-family: var(--osd);
+  font-size: 28px;
+  color: var(--orange);
+  position: absolute;
+  right: 4px; top: 50%;
+  transform: translateY(-50%);
+}
+details[open] summary::after { content: '–'; }
+details p { padding: 0 40px 24px 0; color: var(--dim); font-size: 16px; max-width: 68ch; }
+details p strong { color: var(--white); font-weight: 600; }
+
+/* final CTA — the blue screen */
+.bluescreen {
+  background: var(--vcr-blue);
+  position: relative;
+  overflow: hidden;
+  padding: 110px 0 120px;
+  text-align: center;
+}
+.bluescreen::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,.1) 0 1px, transparent 1px 3px);
+  pointer-events: none;
+}
+.bluescreen .osd { color: rgba(244,242,236,.75); font-size: 22px; letter-spacing: .18em; }
+.bluescreen h2 { margin: 18px auto 14px; max-width: none; }
+.bluescreen .press { color: var(--white); }
+.bluescreen .press .dot { color: var(--rec); }
+.bluescreen p { color: rgba(244,242,236,.8); font-size: 17px; margin-bottom: 40px; }
+.bluescreen .badge-link { display: inline-block; }
+.bluescreen .free-note {
+  margin-top: 22px;
+  margin-bottom: 0;
+  font-family: var(--osd);
+  font-size: 19px;
+  letter-spacing: .1em;
+  color: rgba(244,242,236,.65);
+  text-transform: uppercase;
+}
+
+/* footer */
+footer { padding: 48px 0 60px; }
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.footer-links { display: flex; gap: 28px; flex-wrap: wrap; }
+.footer-links a {
+  font-size: 14px;
+  color: var(--dim);
+  text-decoration: none;
+}
+.footer-links a:hover { color: var(--white); }
+.footer-brand { font-family: var(--osd); font-size: 22px; letter-spacing: .1em; }
+.footer-copy { font-size: 13px; color: var(--faint); }
+
+/* reveal */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.in { opacity: 1; transform: none; }
+
+/* glitch */
+@keyframes tracking {
+  0%, 92%, 100% { transform: none; filter: none; clip-path: none; }
+  93% { transform: translateX(-6px) skewX(-2deg); filter: drop-shadow(3px 0 0 rgba(62,102,245,.9)) drop-shadow(-3px 0 0 rgba(245,65,140,.9)); }
+  94.5% { transform: translateX(5px); clip-path: inset(20% 0 30% 0); }
+  96% { transform: translateX(-3px) skewX(1deg); clip-path: inset(60% 0 10% 0); filter: drop-shadow(-3px 0 0 rgba(255,149,0,.9)); }
+  97.5% { transform: none; clip-path: none; filter: none; }
+}
+.glitchable { animation: tracking 9s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .glitchable, .rec-dot { animation: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* responsive */
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 24px; }
+  .hero { padding-bottom: 120px; }
+  .crt-wrap { padding-top: 10px; }
+  .crt { margin: 0 auto; }
+  .crt-stripes { inset: 10% -18% 10% auto; width: 80%; }
+  .signal-grid { grid-template-columns: 1fr; gap: 44px; }
+  .features-grid { grid-template-columns: 1fr; }
+  section { padding: 72px 0; }
+  .hero-timestamp { bottom: 20px; }
+}
+</style>
+</head>
+<body>
+
+<header class="wrap topbar">
+  <a class="brand" href="/">E240</a>
+  <span class="osd"><span class="rec-dot"></span>REC&nbsp;&nbsp;SP</span>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">VHS camcorder for iPhone</p>
+      <h1 class="glitchable">Who needs 4K when you have <span class="vhs-word">VHS</span>?</h1>
+      <p class="hero-sub"><strong>E240 doesn't paste a grainy overlay on your video.</strong> It films the way real VHS camcorders did — the noise, the color bleed, the timestamp, all coming from the signal itself.</p>
+      <div class="cta-row">
+        <a class="badge-link" href="https://apps.apple.com/us/app/vhs-cam-e240/id1538403735" aria-label="Download E240 on the App Store">
+          <img src="/assets/appstore-badge.svg" alt="Download on the App Store" width="167" height="56">
+        </a>
+        <div class="rating">
+          <div class="stars" aria-hidden="true">★★★★★</div>
+          <div class="count">4.6 · 731 ratings on the App&nbsp;Store</div>
+        </div>
+      </div>
+    </div>
+    <div class="crt-wrap">
+      <div class="crt-stripes stripes" aria-hidden="true"></div>
+      <div class="crt">
+        <div class="crt-screen">
+          <img src="/assets/frame-party.jpg" alt="Footage shot with the E240 VHS camera app: a party filmed like a 2001 camcorder tape, with REC indicator and burned-in timestamp" width="710" height="1225" fetchpriority="high">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-timestamp" aria-hidden="true">AM 1:40:11<br>JUN.09 2001</div>
+</section>
+
+<div class="stripe-band stripes" aria-hidden="true"></div>
+
+<!-- ============ SIGNAL ============ -->
+<section id="signal">
+  <div class="wrap signal-grid">
+    <div class="reveal">
+      <p class="counter-label">COUNTER <b>0:01</b> — THE SIGNAL</p>
+      <h2>Not a filter. A signal.</h2>
+      <p class="section-sub">Every "VHS app" slaps static on top of clean iPhone footage. You can tell. <strong>E240 degrades the picture the way tape actually did</strong> — so your videos don't look filtered, they look found.</p>
+      <div class="signal-points">
+        <div class="point">
+          <p class="osd">Tape physics</p>
+          <p>Color bleed, soft edges, tape noise — <strong>generated in the signal path</strong>, not composited on top.</p>
+        </div>
+        <div class="point">
+          <p class="osd">Burned-in timecode</p>
+          <p>The timestamp sits in the footage like a real camcorder OSD. Position it, format it, 12h or 24h.</p>
+        </div>
+        <div class="point">
+          <p class="osd">Any date you want</p>
+          <p>Film your kid's birthday today, <strong>date it 1994</strong>. The tape doesn't argue.</p>
+        </div>
+      </div>
+    </div>
+    <div class="crt-wrap reveal">
+      <div class="crt" style="transform: rotate(2deg);">
+        <div class="crt-screen">
+          <img src="/assets/frame-beach.jpg" alt="A beach sunset video imported into E240 and converted to VHS, with a custom burned-in timestamp" width="720" height="1285" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section id="features">
+  <div class="wrap">
+    <p class="counter-label reveal">COUNTER <b>0:02</b> — WHAT'S ON THE TAPE</p>
+    <h2 class="reveal">Everything a camcorder did. Nothing it couldn't.</h2>
+    <div class="features-grid reveal">
+      <div class="feature f-orange">
+        <p class="osd">● REC</p>
+        <h3>Film in real time</h3>
+        <p>Point, press record, and watch the VHS look happen live in the viewfinder — not in post.</p>
+      </div>
+      <div class="feature f-coral">
+        <p class="osd">IMPORT</p>
+        <h3>VHS-ify old videos</h3>
+        <p>Pull any clip from your library, run it through the tape, export it back with timestamp and all.</p>
+      </div>
+      <div class="feature f-magenta">
+        <p class="osd">AM 1:40:11</p>
+        <h3>Real timestamps</h3>
+        <p>Burned into the frame like it's 1997. Custom dates, custom position, 12h or 24h format.</p>
+      </div>
+      <div class="feature f-blue">
+        <p class="osd">LOOKS</p>
+        <h3>Four tapes to choose</h3>
+        <p>Classic, Real, Dreamy and Cellphone — from clean-ish home video to a tape that's been in the attic.</p>
+      </div>
+      <div class="feature f-orange">
+        <p class="osd">4:3 / 9:16</p>
+        <h3>Tube TV or stories</h3>
+        <p>Shoot full-frame 4:3 like a real tube TV, vertical for stories, or landscape — your call.</p>
+      </div>
+      <div class="feature f-magenta">
+        <p class="osd">SAVE</p>
+        <h3>Export anywhere</h3>
+        <p>Your tapes land in the photo library, ready for edits, group chats, and confused relatives.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REEL ============ -->
+<section class="reel-section">
+  <div class="wrap">
+    <p class="counter-label reveal">COUNTER <b>0:03</b> — PLAYBACK</p>
+    <h2 class="reveal">Straight off the tape.</h2>
+  </div>
+  <div class="reel reveal">
+    <img src="/assets/shot-1.jpg" alt="E240 app screenshot — the most realistic VHS camera" width="250" loading="lazy">
+    <img src="/assets/shot-2.jpg" alt="E240 app screenshot — VHS recording interface" width="250" loading="lazy">
+    <img src="/assets/shot-3.jpg" alt="E240 app screenshot — import videos from library" width="250" loading="lazy">
+    <img src="/assets/shot-4.jpg" alt="E240 app screenshot — VHS filters and looks" width="250" loading="lazy">
+    <img src="/assets/shot-5.jpg" alt="E240 app screenshot — timestamp settings" width="250" loading="lazy">
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq">
+  <div class="wrap">
+    <p class="counter-label reveal">COUNTER <b>0:04</b> — QUESTIONS</p>
+    <h2 class="reveal">Frequently asked</h2>
+    <div class="faq-list reveal">
+      <details>
+        <summary>What is E240?</summary>
+        <p>E240 (full App Store name: <strong>VHS Cam – E240</strong>) is a VHS camera app for iPhone. It records video that looks like it was shot on a real 90s camcorder — tape noise, color bleed, burned-in timestamp — and can apply the same treatment to videos already in your library.</p>
+      </details>
+      <details>
+        <summary>How is E240 different from other VHS camera apps?</summary>
+        <p>Most VHS apps composite a grainy overlay on top of clean footage. <strong>E240 processes the image the way a real VHS camera and tape did</strong> — the degradation comes from the signal itself, which is why the result reads as genuine camcorder footage instead of a filter.</p>
+      </details>
+      <details>
+        <summary>Is E240 free?</summary>
+        <p>Yes — E240 is free to download and use. An optional <strong>PRO subscription</strong> unlocks unlimited recording, all filters, custom timestamps, and removes watermarks.</p>
+      </details>
+      <details>
+        <summary>Can I put the VHS effect on videos I already filmed?</summary>
+        <p>Yes. Import any video from your photo library, run it through E240, and export it back with the full VHS treatment — timestamp included.</p>
+      </details>
+      <details>
+        <summary>Can I change the date on the timestamp?</summary>
+        <p>Yes. Set any custom date and time — the timestamp is burned into the footage exactly like a real camcorder OSD, so today's video can say <strong>JUN.09 1994</strong>.</p>
+      </details>
+      <details>
+        <summary>Is E240 available for Android?</summary>
+        <p>No — E240 is an iPhone app, available exclusively on the <a href="https://apps.apple.com/us/app/vhs-cam-e240/id1538403735">Apple App Store</a>.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BLUE SCREEN CTA ============ -->
+<section class="bluescreen">
+  <div class="wrap">
+    <p class="osd">— INSERT TAPE —</p>
+    <h2 class="press">Press <span class="dot">●</span> REC</h2>
+    <p>Your camcorder has been in your pocket the whole time.</p>
+    <a class="badge-link" href="https://apps.apple.com/us/app/vhs-cam-e240/id1538403735" aria-label="Download E240 on the App Store">
+      <img src="/assets/appstore-badge.svg" alt="Download on the App Store" width="167" height="56">
+    </a>
+    <p class="free-note">Free · iPhone · 4.6★ on the App Store</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span class="footer-brand">E240</span>
+    <nav class="footer-links">
+      <a href="/privacy-policy">Privacy Policy</a>
+      <a href="/terms-of-use">Terms of Use</a>
+      <a href="https://instagram.com/e240.app">Instagram</a>
+      <a href="mailto:e240app@protonmail.com">Contact</a>
+    </nav>
+    <span class="footer-copy">© 2026 SputnikLabs</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(function (el) {
+    io.observe(el);
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,4 +1,6 @@
 theme: jekyll-theme-minimal
 title: E240
-description: Legal Documents for E240 - VHS Camera App
+description: "E240 — VHS Camera App for iPhone"
 show_downloads: false
+exclude:
+  - README.md
