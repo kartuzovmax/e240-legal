@@ -59,6 +59,20 @@
     width: min(320px, 100%);
   }
   .join:active { background: #fff; }
+  .install {
+    display: block;
+    background: transparent;
+    color: var(--silver);
+    border: 1px solid var(--faint);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .3em;
+    padding: 16px 20px;
+    width: min(320px, 100%);
+    margin-top: 12px;
+  }
+  .install:active { border-color: var(--silver); }
   .hint {
     font-size: 11px;
     letter-spacing: .14em;
@@ -82,10 +96,13 @@
     <span class="rule"></span>
   </div>
   <p class="lead">ONE TAPE · ONE NIGHT<br>FILM IT ON E240</p>
-  <a class="join" href="e240://party">JOIN THE PARTY TAPE</a>
+  <div>
+    <a class="join" href="e240://party">JOIN THE PARTY TAPE</a>
+    <a class="install" href="https://testflight.apple.com/join/s2zQJgex">GET THE APP · TESTFLIGHT</a>
+  </div>
   <p class="hint">
-    Nothing happening? Install the E240 camera first — TestFlight link in the
-    party chat — then tap the button again.<br>
+    First time? Get the app (one tap via TestFlight), open it once,
+    then come back and hit Join.<br>
     If you're inside Telegram's browser, use ··· &rarr; Open in Safari.
   </p>
   <div class="bars"></div>
