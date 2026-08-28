@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Dirty Thirty — Join the Party Tape</title>
+<style>
+  :root {
+    --black: #0A0A0B;
+    --silver: #E9E9EB;
+    --dim: #9A9AA0;
+    --faint: #55555C;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: radial-gradient(120% 90% at 50% 8%, #131315 0%, var(--black) 55%, #070708 100%);
+    color: var(--silver);
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 44px;
+    padding: 48px 28px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-align: center;
+  }
+  h1 {
+    font-size: clamp(36px, 11vw, 52px);
+    font-weight: 600;
+    letter-spacing: .28em;
+    margin-right: -.28em;
+    line-height: 1.25;
+  }
+  .rule {
+    width: 34px;
+    border-top: 1px solid var(--dim);
+    margin-top: 18px;
+    display: inline-block;
+  }
+  .lead {
+    font-size: 12px;
+    letter-spacing: .3em;
+    margin-right: -.3em;
+    color: var(--dim);
+    line-height: 2;
+  }
+  .join {
+    display: block;
+    background: var(--silver);
+    color: #0A0A0B;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: .3em;
+    padding: 22px 20px;
+    width: min(320px, 100%);
+  }
+  .join:active { background: #fff; }
+  .hint {
+    font-size: 11px;
+    letter-spacing: .14em;
+    color: var(--faint);
+    line-height: 2;
+    max-width: 340px;
+  }
+  .hint a { color: var(--dim); }
+  .bars {
+    width: 52px;
+    height: 3px;
+    background: linear-gradient(90deg,
+      #d33 0 14%, #d73 14% 28%, #cc4 28% 42%, #3a4 42% 56%,
+      #3aa 56% 70%, #36c 70% 84%, #a3c 84% 100%);
+  }
+</style>
+</head>
+<body>
+  <div>
+    <h1>DIRTY<br>THIRTY</h1>
+    <span class="rule"></span>
+  </div>
+  <p class="lead">ONE TAPE · ONE NIGHT<br>FILM IT ON E240</p>
+  <a class="join" href="e240://party">JOIN THE PARTY TAPE</a>
+  <p class="hint">
+    Nothing happening? Install the E240 camera first — TestFlight link in the
+    party chat — then tap the button again.<br>
+    If you're inside Telegram's browser, use ··· &rarr; Open in Safari.
+  </p>
+  <div class="bars"></div>
+  <script>
+    // Best-effort auto-open for browsers that allow scheme navigation
+    // without a tap (Safari prompts; in-app webviews may ignore — the
+    // button is the reliable path).
+    setTimeout(function () {
+      window.location.href = "e240://party";
+    }, 500);
+  </script>
+</body>
+</html>
