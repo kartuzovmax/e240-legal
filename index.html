@@ -43,7 +43,7 @@
     "priceCurrency": "USD",
     "description": "Free to download. E240 PRO subscription unlocks unlimited recording and the custom tape builder."
   },
-  "featureList": "Real-time VHS camera, 7 tape presets, custom filter builder, burned-in timestamps with custom dates, glitch and tape-damage effects, video import and editor, memory-tape VCR, home movie maker",
+  "featureList": "Real-time VHS camera, 4:3 and 9:16 recording, 7 tape presets, custom filter builder, burned-in timestamps with custom dates, glitch and tape-damage effects, video import and editor, memory-tape VCR, home movie maker",
   "author": {
     "@type": "Organization",
     "name": "SputnikLabs"
@@ -74,6 +74,11 @@
       "@type": "Question",
       "name": "Can I put a VHS effect on videos I already filmed?",
       "acceptedAnswer": { "@type": "Answer", "text": "Yes. Import any video from your photo library into E240's editor, pick a tape, and export it back with the full VHS treatment — including a burned-in timestamp set to any date you want, so today's video can say 1994." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can E240 record in 4:3?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. E240 shoots full-frame 4:3 like a tube TV, vertical 9:16 for stories, and landscape — the camera and editor both keep the ratio you pick." }
     },
     {
       "@type": "Question",
@@ -225,12 +230,14 @@ h1 .vhs-word { color: var(--magenta); }
 
 /* CRT frame */
 .crt-wrap { position: relative; padding: 26px 0; }
-.crt-stripes {
+.crt-glow {
   position: absolute;
-  inset: -4% -14% -4% auto;
-  width: 46%;
-  transform: rotate(18deg);
-  opacity: .9;
+  inset: -14% -24%;
+  background:
+    radial-gradient(46% 40% at 66% 32%, rgba(245, 65, 140, .30), transparent 70%),
+    radial-gradient(52% 46% at 42% 72%, rgba(62, 102, 245, .26), transparent 70%),
+    radial-gradient(40% 34% at 78% 78%, rgba(255, 149, 0, .20), transparent 70%);
+  pointer-events: none;
 }
 .crt {
   position: relative;
@@ -260,18 +267,6 @@ h1 .vhs-word { color: var(--magenta); }
   text-shadow: 0 0 6px rgba(255, 59, 48, .5);
 }
 .crt-screen .osd-rec .rec-dot { margin-right: 6px; }
-.crt-screen .osd-ts {
-  position: absolute;
-  bottom: 12px; right: 16px;
-  font-family: var(--osd);
-  font-size: 20px;
-  color: var(--white);
-  opacity: .9;
-  z-index: 2;
-  text-align: right;
-  line-height: 1.1;
-  text-shadow: 1px 0 0 rgba(62, 102, 245, .7), -1px 0 0 rgba(245, 65, 140, .5);
-}
 .crt-screen::after {
   content: '';
   position: absolute; inset: 0;
@@ -379,6 +374,158 @@ h2 {
   border-top: 1px solid rgba(244, 242, 236, .14);
 }
 
+/* VCR (colors from the app: tvCabinet, tvScreenBezel, vcrScreenBlue) */
+.vcr-stage { margin: 52px auto 0; max-width: 680px; }
+.vcr {
+  background: linear-gradient(180deg, #3e3e46, #26262c);
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 22px;
+  padding: 14px 14px 18px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, .6), inset 0 1px 0 rgba(255, 255, 255, .1);
+}
+.vcr-bezel {
+  background: #0d0d10;
+  border-radius: 14px;
+  padding: 12px;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, .8);
+}
+.vcr-tube {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000;
+  aspect-ratio: 4 / 3;
+}
+.vcr-tube video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.vcr-tube .osd-play {
+  position: absolute;
+  top: 12px; left: 16px;
+  font-family: var(--osd);
+  font-size: 22px;
+  color: var(--white);
+  opacity: .9;
+  z-index: 2;
+  text-shadow: 0 0 6px rgba(0, 0, 0, .6);
+}
+.vcr-tube::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,.15) 0 1px, transparent 1px 3px);
+  pointer-events: none;
+  z-index: 1;
+}
+.vcr-tube::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(130% 100% at 30% 0%, rgba(255,255,255,.08), transparent 45%);
+  pointer-events: none;
+  z-index: 3;
+}
+.vcr-bluescreen {
+  position: absolute; inset: 0;
+  background: #050d73;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--osd);
+  font-size: 26px;
+  letter-spacing: .12em;
+  color: var(--white);
+  z-index: 2;
+}
+.vcr.ejected .vcr-bluescreen { display: flex; }
+.vcr-slot {
+  height: 12px;
+  margin: 12px 44px 0;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #0a0a0c, #1c1c20);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, .9), 0 1px 0 rgba(255, 255, 255, .08);
+}
+.vcr-keys {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+.vcr-key {
+  border: 0;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: center;
+  font-family: var(--osd);
+  text-decoration: none;
+  display: block;
+}
+.vcr-key .cap {
+  display: block;
+  font-size: 13px;
+  letter-spacing: .1em;
+  color: rgba(255, 255, 255, .55);
+  padding-bottom: 2px;
+  border-bottom: 1.5px solid #2fbf8f;
+  margin-bottom: 7px;
+}
+.vcr-key .btn {
+  display: block;
+  min-width: 62px;
+  padding: 9px 10px 7px;
+  border-radius: 5px;
+  background: linear-gradient(180deg, #f2ebd9, #d8d1bc);
+  border: 1px solid rgba(0, 0, 0, .45);
+  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, .7), 0 2px 2px rgba(0, 0, 0, .4);
+  color: #4a4640;
+  font-size: 18px;
+  line-height: 1;
+}
+.vcr-key:active .btn { transform: translateY(1px); box-shadow: inset 0 2px 4px rgba(0, 0, 0, .25); }
+.vcr-key.red .btn {
+  background: linear-gradient(180deg, #e8453c, #b92b24);
+  color: rgba(255, 255, 255, .92);
+  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, .35), 0 2px 2px rgba(0, 0, 0, .4);
+}
+
+/* camera ratios */
+.ratio-row {
+  display: flex;
+  gap: 40px;
+  align-items: flex-end;
+  justify-content: center;
+  margin-top: 52px;
+  flex-wrap: wrap;
+}
+.ratio-frame { position: relative; }
+.ratio-frame img {
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid #2c2c30;
+  background: #000;
+}
+.ratio-43 img { width: min(440px, 100%); }
+.ratio-916 img { width: min(210px, 60vw); }
+.ratio-frame::after {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: 14px;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,.13) 0 1px, transparent 1px 3px);
+  pointer-events: none;
+}
+.ratio-chip {
+  position: absolute;
+  top: 12px; left: 14px;
+  z-index: 2;
+  font-family: var(--osd);
+  font-size: 20px;
+  color: var(--white);
+  background: rgba(10, 10, 11, .55);
+  padding: 2px 10px 0;
+  border-radius: 4px;
+  letter-spacing: .08em;
+}
+
 /* FAQ */
 .faq-list { margin-top: 36px; max-width: 780px; }
 details { border-top: 1px solid var(--line); }
@@ -475,7 +622,6 @@ footer { padding: 44px 0 60px; }
   .hero { padding-bottom: 120px; }
   .crt-wrap { padding-top: 8px; }
   .crt { margin: 0 auto; }
-  .crt-stripes { inset: 10% -18% 10% auto; width: 80%; }
   .features-grid { grid-template-columns: 1fr; }
   section { padding: 68px 0; }
   .tape img, .tape .plus-sleeve { height: 240px; }
@@ -491,7 +637,8 @@ footer { padding: 44px 0 60px; }
       <img src="/assets/logo.png" alt="E240" width="300" height="93">
     </a>
     <div class="nav-links">
-      <a href="#features">Features</a>
+      <a href="#tv">TV</a>
+      <a href="#camera">Camera</a>
       <a href="#tapes">Tapes</a>
       <a href="#faq">FAQ</a>
       <a class="nav-cta" href="https://apps.apple.com/us/app/vhs-cam-e240/id1538403735">Download</a>
@@ -510,12 +657,11 @@ footer { padding: 44px 0 60px; }
       </a>
     </div>
     <div class="crt-wrap">
-      <div class="crt-stripes stripes" aria-hidden="true"></div>
+      <div class="crt-glow" aria-hidden="true"></div>
       <div class="crt">
         <div class="crt-screen">
           <span class="osd-rec" aria-hidden="true"><span class="rec-dot"></span>REC</span>
           <video src="/assets/hero.mp4" poster="/assets/hero-poster.jpg" autoplay muted loop playsinline aria-label="Video filmed with the E240 VHS camera app, looking like real 90s camcorder footage"></video>
-          <span class="osd-ts" aria-hidden="true">PM 4:20:36<br>SEP.01 1997</span>
         </div>
       </div>
     </div>
@@ -525,27 +671,59 @@ footer { padding: 44px 0 60px; }
 
 <div class="stripe-band stripes" aria-hidden="true"></div>
 
-<!-- ============ FEATURES ============ -->
-<section id="features">
+<!-- ============ TV ============ -->
+<section id="tv">
   <div class="wrap">
-    <p class="counter-label reveal">COUNTER <b>0:01</b> — WHAT'S INSIDE</p>
-    <h2 class="reveal">A whole video store in your pocket.</h2>
+    <p class="counter-label reveal">COUNTER <b>0:01</b> — MOVIE NIGHT</p>
+    <h2 class="reveal">Your library, on a tube.</h2>
+    <p class="section-sub reveal">The Home tab is a VCR. It cuts <strong>memory tapes</strong> from your photo library and plays them like it's 1996. The keys work — try them.</p>
+    <div class="vcr-stage reveal">
+      <div class="vcr" id="vcr">
+        <div class="vcr-bezel">
+          <div class="vcr-tube">
+            <span class="osd-play" id="vcrOsd" aria-hidden="true">PLAY ▶</span>
+            <video id="vcrVideo" src="/assets/tv.mp4" poster="/assets/tv-poster.jpg" muted loop playsinline preload="none" aria-label="A memory tape playing on the E240 VCR: home video moments with the VHS look"></video>
+            <div class="vcr-bluescreen" aria-hidden="true">INSERT TAPE</div>
+          </div>
+        </div>
+        <div class="vcr-slot" aria-hidden="true"></div>
+        <div class="vcr-keys">
+          <button class="vcr-key" id="keyRew" type="button"><span class="cap">REW</span><span class="btn">◀◀</span></button>
+          <button class="vcr-key" id="keyPlay" type="button"><span class="cap">PLAY</span><span class="btn">▶</span></button>
+          <button class="vcr-key" id="keyFwd" type="button"><span class="cap">F.FWD</span><span class="btn">▶▶</span></button>
+          <button class="vcr-key" id="keyEject" type="button"><span class="cap">EJECT</span><span class="btn">▲</span></button>
+          <a class="vcr-key red" href="https://apps.apple.com/us/app/vhs-cam-e240/id1538403735"><span class="cap">GET APP</span><span class="btn">●</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CAMERA ============ -->
+<section id="camera">
+  <div class="wrap">
+    <p class="counter-label reveal">COUNTER <b>0:02</b> — THE CAMERA</p>
+    <h2 class="reveal">Films every way you hold it.</h2>
+    <p class="section-sub reveal">The signal happens <strong>live in the viewfinder</strong>, not in post. Full-frame <strong>4:3</strong> like a tube TV, <strong>9:16</strong> for stories — portrait or landscape.</p>
+    <div class="ratio-row reveal">
+      <div class="ratio-frame ratio-43">
+        <span class="ratio-chip" aria-hidden="true">4:3</span>
+        <img src="/assets/ratio-43.jpg" alt="Full-frame 4:3 video recorded with E240, like a tube TV" width="640" height="480" loading="lazy">
+      </div>
+      <div class="ratio-frame ratio-916">
+        <span class="ratio-chip" aria-hidden="true">9:16</span>
+        <img src="/assets/ratio-916.jpg" alt="Vertical 9:16 video recorded with E240, ready for stories" width="640" height="1138" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE REST OF THE DECK ============ -->
+<section id="deck">
+  <div class="wrap">
+    <p class="counter-label reveal">COUNTER <b>0:03</b> — STILL ROLLING</p>
+    <h2 class="reveal">And the rest of the deck.</h2>
     <div class="features-grid reveal">
-      <div class="feature f-coral">
-        <p class="osd">● REC</p>
-        <h3>Camera</h3>
-        <p>The VHS look happens live in the viewfinder — signal, noise, timestamp. Not in post.</p>
-      </div>
-      <div class="feature f-orange">
-        <p class="osd">TAPES</p>
-        <h3>Seven looks + yours</h3>
-        <p>From T-120 to Night Vision. Or build your own tape from 60+ real signal controls.</p>
-      </div>
-      <div class="feature f-blue">
-        <p class="osd">TV</p>
-        <h3>Memory tapes</h3>
-        <p>A VCR on the home screen auto-cuts tapes from your photo library and plays them on a tube.</p>
-      </div>
       <div class="feature f-magenta">
         <p class="osd">GLITCH</p>
         <h3>Break the tape</h3>
@@ -568,7 +746,7 @@ footer { padding: 44px 0 60px; }
 <!-- ============ TAPE SHELF ============ -->
 <section id="tapes" class="shelf-section">
   <div class="wrap">
-    <p class="counter-label reveal">COUNTER <b>0:02</b> — PICK A TAPE</p>
+    <p class="counter-label reveal">COUNTER <b>0:04</b> — PICK A TAPE</p>
     <h2 class="reveal">Every tape is a different decade.</h2>
     <p class="section-sub reveal">Each one models a different deck, tape stock and amount of abuse.</p>
   </div>
@@ -612,7 +790,7 @@ footer { padding: 44px 0 60px; }
 <!-- ============ FAQ ============ -->
 <section id="faq">
   <div class="wrap">
-    <p class="counter-label reveal">COUNTER <b>0:03</b> — QUESTIONS</p>
+    <p class="counter-label reveal">COUNTER <b>0:05</b> — QUESTIONS</p>
     <h2 class="reveal">Frequently asked</h2>
     <div class="faq-list reveal">
       <details>
@@ -630,6 +808,10 @@ footer { padding: 44px 0 60px; }
       <details>
         <summary>Can I put the VHS effect on videos I already filmed?</summary>
         <p>Yes. Import any clip into the editor, pick a tape, and export it back — with a burned-in timestamp set to <strong>any date you want</strong>.</p>
+      </details>
+      <details>
+        <summary>Can E240 record in 4:3?</summary>
+        <p>Yes. E240 shoots full-frame <strong>4:3</strong> like a tube TV, vertical <strong>9:16</strong> for stories, and landscape — the camera and editor both keep the ratio you pick.</p>
       </details>
       <details>
         <summary>Is E240 available for Android?</summary>
@@ -669,19 +851,84 @@ footer { padding: 44px 0 60px; }
 
 <script>
 (function () {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    return;
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(function (el) {
+      io.observe(el);
+    });
   }
-  var io = new IntersectionObserver(function (entries) {
+
+  // VCR: lazy-start the tape when the TV scrolls into view, keys control it
+  var vcr = document.getElementById('vcr');
+  var tape = document.getElementById('vcrVideo');
+  var osd = document.getElementById('vcrOsd');
+  var ejected = false;
+
+  function setOsd(text) {
+    osd.textContent = text;
+  }
+  var vio = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
-      if (e.isIntersecting) {
-        e.target.classList.add('in');
-        io.unobserve(e.target);
+      if (e.isIntersecting && !ejected) {
+        tape.play();
+        setOsd('PLAY ▶');
+      } else {
+        tape.pause();
       }
     });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(function (el) {
-    io.observe(el);
+  }, { threshold: 0.35 });
+  vio.observe(vcr);
+
+  document.getElementById('keyRew').addEventListener('click', function () {
+    if (ejected) {
+      return;
+    }
+    tape.currentTime = 0;
+    tape.play();
+    setOsd('REW ◀◀');
+    setTimeout(function () {
+      setOsd('PLAY ▶');
+    }, 900);
+  });
+  document.getElementById('keyPlay').addEventListener('click', function () {
+    if (ejected) {
+      return;
+    }
+    if (tape.paused) {
+      tape.play();
+      setOsd('PLAY ▶');
+    } else {
+      tape.pause();
+      setOsd('PAUSE ▮▮');
+    }
+  });
+  document.getElementById('keyFwd').addEventListener('click', function () {
+    if (ejected) {
+      return;
+    }
+    tape.currentTime = (tape.currentTime + 3) % (tape.duration || 1);
+    setOsd('F.FWD ▶▶');
+    setTimeout(function () {
+      setOsd('PLAY ▶');
+    }, 900);
+  });
+  document.getElementById('keyEject').addEventListener('click', function () {
+    ejected = !ejected;
+    vcr.classList.toggle('ejected', ejected);
+    if (ejected) {
+      tape.pause();
+      setOsd('');
+    } else {
+      tape.play();
+      setOsd('PLAY ▶');
+    }
   });
 })();
 </script>
