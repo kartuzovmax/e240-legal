@@ -91,23 +91,29 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=VT323&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Instrument+Serif:ital@0;1&family=VT323&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --black: #0a0a0b;
-  --panel: #131315;
-  --line: #232326;
-  --white: #f4f2ec;
-  --dim: rgba(244, 242, 236, .58);
-  --faint: rgba(244, 242, 236, .34);
-  --rec: #ff3b30;
-  --orange: #ff9500;
-  --coral: #ff4a3d;
-  --magenta: #f5418c;
-  --blue: #3e66f5;
-  --vcr-blue: #0f1fc4;
+  /* Palette ported from the App Store screenshot set. */
+  --black: #08080b;
+  --panel: #101219;
+  --line: #23262f;
+  --white: #f2f3f7;
+  --dim: rgba(242, 243, 247, .60);
+  --faint: rgba(242, 243, 247, .36);
+  --rec: #ff3b30;          /* the app's own recording red */
+  --orange: #f8891f;       /* tape orange — the selected-cassette border */
+  --coral: #f8891f;
+  --magenta: #f8891f;
+  --blue: #1f35ff;         /* cobalt, the ground of frames 2 / 3 / 6 */
+  --cobalt: #1226d8;
+  --vcr-blue: #1226d8;
+  --cream: #efe7d3;        /* the review labels of frame 9 */
+  --cream-ink: #171310;
+  --cream-star: #c0402a;
   --osd: 'VT323', monospace;
+  --serif: 'Instrument Serif', Georgia, serif;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -121,7 +127,7 @@ body {
 }
 img, video { max-width: 100%; display: block; }
 a { color: inherit; }
-::selection { background: var(--magenta); color: var(--black); }
+::selection { background: var(--orange); color: var(--black); }
 
 .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
 
@@ -136,10 +142,9 @@ a { color: inherit; }
 /* ---------- stripes (from the tape label) ---------- */
 .stripes {
   background: repeating-linear-gradient(180deg,
-    var(--orange) 0 14px, var(--black) 14px 20px,
-    var(--coral) 20px 34px, var(--black) 34px 40px,
-    var(--magenta) 40px 54px, var(--black) 54px 60px,
-    var(--blue) 60px 74px, var(--black) 74px 92px);
+    var(--orange) 0 15px, var(--black) 15px 21px,
+    var(--blue) 21px 36px, var(--black) 36px 42px,
+    var(--cobalt) 42px 54px, var(--black) 54px 76px);
 }
 .stripe-band {
   height: 74px;
@@ -190,6 +195,17 @@ a { color: inherit; }
 
 /* ---------- hero ---------- */
 .hero { position: relative; padding: 40px 0 90px; }
+.hero::before {
+  content: '';
+  position: absolute;
+  left: 50%; top: -240px;
+  width: min(1500px, 150vw); height: 760px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(31, 53, 255, .38), rgba(31, 53, 255, 0) 66%);
+  pointer-events: none;
+  z-index: 0;
+}
+.hero > .wrap, .hero-timestamp { position: relative; z-index: 1; }
 .hero-grid {
   display: grid;
   grid-template-columns: 1.05fr .95fr;
@@ -197,13 +213,14 @@ a { color: inherit; }
   align-items: center;
 }
 h1 {
-  font-size: clamp(36px, 4.9vw, 66px);
-  line-height: .98;
-  font-weight: 900;
-  font-variation-settings: 'wdth' 114;
-  text-transform: uppercase;
-  letter-spacing: -.01em;
+  font-size: clamp(38px, 5.2vw, 70px);
+  line-height: .96;
+  font-weight: 800;
+  font-variation-settings: 'wdth' 100;
+  letter-spacing: -.03em;
+  text-wrap: balance;
   position: relative;
+  text-shadow: 0 0 34px rgba(255, 255, 255, .22), 0 0 90px rgba(255, 255, 255, .10);
 }
 h1 .vhs-word { color: var(--magenta); }
 .glitchable { position: relative; }
@@ -234,9 +251,9 @@ h1 .vhs-word { color: var(--magenta); }
   position: absolute;
   inset: -14% -24%;
   background:
-    radial-gradient(46% 40% at 66% 32%, rgba(245, 65, 140, .30), transparent 70%),
-    radial-gradient(52% 46% at 42% 72%, rgba(62, 102, 245, .26), transparent 70%),
-    radial-gradient(40% 34% at 78% 78%, rgba(255, 149, 0, .20), transparent 70%);
+    radial-gradient(58% 50% at 60% 40%, rgba(31, 53, 255, .46), transparent 70%),
+    radial-gradient(44% 38% at 34% 78%, rgba(18, 38, 216, .30), transparent 72%),
+    radial-gradient(34% 30% at 84% 80%, rgba(248, 137, 31, .16), transparent 70%);
   pointer-events: none;
 }
 .crt {
@@ -302,12 +319,13 @@ section { padding: 90px 0; }
 }
 .counter-label b { color: var(--orange); font-weight: 400; }
 h2 {
-  font-size: clamp(32px, 4.4vw, 54px);
-  line-height: 1.02;
-  font-weight: 900;
-  font-variation-settings: 'wdth' 118;
-  text-transform: uppercase;
-  max-width: 22ch;
+  font-size: clamp(31px, 4.2vw, 52px);
+  line-height: 1.0;
+  font-weight: 800;
+  font-variation-settings: 'wdth' 100;
+  letter-spacing: -.028em;
+  text-wrap: balance;
+  max-width: 20ch;
 }
 .section-sub { margin-top: 18px; font-size: 18px; color: var(--dim); max-width: 52ch; }
 .section-sub strong { color: var(--white); font-weight: 600; }
@@ -331,7 +349,7 @@ h2 {
 .f-orange .osd { color: var(--orange); }
 .f-coral .osd { color: var(--coral); }
 .f-magenta .osd { color: var(--magenta); }
-.f-blue .osd { color: #7d95ff; }
+.f-blue .osd { color: #8296ff; }
 
 /* tape shelf */
 .shelf-section { padding-bottom: 60px; overflow: hidden; }
@@ -526,6 +544,50 @@ h2 {
   letter-spacing: .08em;
 }
 
+/* ---------- reviews: the cream labels of screenshot 9 ---------- */
+.reviews-grid {
+  margin-top: 44px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px;
+}
+.review {
+  background: var(--cream);
+  color: var(--cream-ink);
+  border-radius: 4px;
+  padding: 26px 28px 22px;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, .45);
+  transform: rotate(var(--tl, 0deg));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.review .stars {
+  font-size: 17px;
+  letter-spacing: .1em;
+  color: var(--cream-star);
+  line-height: 1;
+}
+.review q {
+  quotes: none;
+  font-family: var(--serif);
+  font-size: 25px;
+  line-height: 1.2;
+  flex: 1;
+}
+.review .by {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  opacity: .55;
+  text-align: right;
+}
+@media (max-width: 760px) {
+  .reviews-grid { grid-template-columns: 1fr; gap: 20px; }
+  .review q { font-size: 22px; }
+}
+
 /* FAQ */
 .faq-list { margin-top: 36px; max-width: 780px; }
 details { border-top: 1px solid var(--line); }
@@ -554,7 +616,7 @@ details p strong { color: var(--white); font-weight: 600; }
 
 /* final CTA — the blue screen */
 .bluescreen {
-  background: var(--vcr-blue);
+  background: var(--cobalt);
   position: relative;
   overflow: hidden;
   padding: 100px 0 110px;
@@ -640,6 +702,7 @@ footer { padding: 44px 0 60px; }
       <a href="#tv">TV</a>
       <a href="#camera">Camera</a>
       <a href="#tapes">Tapes</a>
+      <a href="#reviews">Reviews</a>
       <a href="#faq">FAQ</a>
       <a class="nav-cta" href="https://apps.apple.com/us/app/vhs-cam-e240/id1538403735">Download</a>
     </div>
@@ -724,7 +787,7 @@ footer { padding: 44px 0 60px; }
     <p class="counter-label reveal">COUNTER <b>0:03</b> — STILL ROLLING</p>
     <h2 class="reveal">And the rest of the deck.</h2>
     <div class="features-grid reveal">
-      <div class="feature f-magenta">
+      <div class="feature f-orange">
         <p class="osd">GLITCH</p>
         <h3>Break the tape</h3>
         <p>Tracking wobble, tape damage, bottom-line glitch — trigger them while you film.</p>
@@ -734,7 +797,7 @@ footer { padding: 44px 0 60px; }
         <h3>VHS-ify old videos</h3>
         <p>Import any clip, pick a tape, stamp it with any date. 1994 works.</p>
       </div>
-      <div class="feature f-coral">
+      <div class="feature f-blue">
         <p class="osd">LIBRARY</p>
         <h3>Home movies</h3>
         <p>Everything you shot in one place — cut it into a home movie worth rewinding.</p>
@@ -787,10 +850,41 @@ footer { padding: 44px 0 60px; }
   <div class="plank" aria-hidden="true"></div>
 </section>
 
+<!-- ============ REVIEWS ============ -->
+<section id="reviews">
+  <div class="wrap">
+    <p class="counter-label reveal">COUNTER <b>0:05</b> — WHAT PEOPLE SAY</p>
+    <h2 class="reveal">People keep saying the same thing.</h2>
+    <p class="section-sub reveal">Real reviews from the App Store.</p>
+    <div class="reviews-grid reveal">
+      <figure class="review" style="--tl:-1.3deg">
+        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <q>Love it! I feel like I’m Francis Ford Coppola shooting The Godfather</q>
+        <figcaption class="by">mickelsonman</figcaption>
+      </figure>
+      <figure class="review" style="--tl:1.0deg">
+        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <q>Used this at this year’s Edinburgh Military Tattoo and it’s like having a real camcorder. Wonderful 1990’s quality.</q>
+        <figcaption class="by">bamburghbeach</figcaption>
+      </figure>
+      <figure class="review" style="--tl:-0.8deg">
+        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <q>Great app, that captures the VHS aesthetics. Shoot videos like it’s 1997.</q>
+        <figcaption class="by">CrisHaris</figcaption>
+      </figure>
+      <figure class="review" style="--tl:1.2deg">
+        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <q>The new filters are pretty amazing. Love the idea of the automatic tape memories!</q>
+        <figcaption class="by">Kaysa</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
 <!-- ============ FAQ ============ -->
 <section id="faq">
   <div class="wrap">
-    <p class="counter-label reveal">COUNTER <b>0:05</b> — QUESTIONS</p>
+    <p class="counter-label reveal">COUNTER <b>0:06</b> — QUESTIONS</p>
     <h2 class="reveal">Frequently asked</h2>
     <div class="faq-list reveal">
       <details>
